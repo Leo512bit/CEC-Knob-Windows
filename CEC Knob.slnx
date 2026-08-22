@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="CEC Knob/CEC Knob.vcxproj" Id="1f5fe091-98cf-41ad-b1fd-ad10f60189d9" />
+</Solution>
