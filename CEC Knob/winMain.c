@@ -190,7 +190,8 @@ LRESULT CALLBACK LowLevelKeyboardProc(INT nCode, WPARAM wParam, LPARAM lParam)
 
 
 
-VOID ParseDllArgument(VOID) {
+VOID ParseDllArgument(VOID)
+{
 	INT argc = 0;
 	LPWSTR* argv = CommandLineToArgvW(GetCommandLineW(), &argc);
 	if (argv != NULL)
