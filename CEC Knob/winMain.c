@@ -4,8 +4,8 @@
 This source file is triple licensed with the following options:
 
 -The GNU General Public License version 3 (or later if you so choose).
--A custom permissive license based on the BSD 3-clause license that is more permssive as it excludes the binary clause (in fact in some ways it is more permissive than the BSD 2-clause).
--The University of Illinois/NCSA Open Source License license if you do not want to deal with a custom lincese.
+-A custom permissive license based on the BSD 3-clause license that is more permissive as it excludes the binary clause (in fact in some ways it is more permissive than the BSD 2-clause).
+-The University of Illinois/NCSA Open Source License license if you do not want to deal with a custom license.
 
 The custom permissive license is as follows:
 
