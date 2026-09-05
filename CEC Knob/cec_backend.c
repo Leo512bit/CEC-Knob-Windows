@@ -64,12 +64,10 @@ static INT load_libcec_dll(VOID)
 {
 	//Yes I know this is all sloppy. I hated writing it.
 	WCHAR path[MAX_PATH];
-	if (g_CustomDllPath[0] != L'\0') {
-		StringCchCopyW(path, ARRAYSIZE(path), g_CustomDllPath);
-	}
-	else {
-		StringCchCopyW(path, ARRAYSIZE(path), L"C:\\Program Files\\Pulse-Eight\\USB-CEC Adapter\\cec.dll");
-	}
+	if (g_CustomDllPath[0] != L'\0') StringCchCopyW(path, ARRAYSIZE(path), g_CustomDllPath);
+
+	else StringCchCopyW(path, ARRAYSIZE(path), L"C:\\Program Files\\Pulse-Eight\\USB-CEC Adapter\\cec.dll");
+
 	HMODULE hLibCec = LoadLibraryW(path);
 
 

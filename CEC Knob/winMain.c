@@ -1,5 +1,5 @@
 ﻿/*
-©2026 Leonard Matthew Teyssier 
+©2026 Leonard Matthew Teyssier
 
 This source file is triple licensed with the following options:
 
@@ -126,34 +126,34 @@ DWORD WINAPI CecWorkerThread(LPVOID lpParam)
 	{
 		switch (msg.message)
 		{
-			case WM_APP_VOLUME_UP:
-			{
-				extern void cec_volume_up(void);
-				cec_volume_up();
-	
-				break;
-			}
-			case WM_APP_VOLUME_DOWN:
-			{
-				extern void cec_volume_down(void);
-				cec_volume_down();
+		case WM_APP_VOLUME_UP:
+		{
+			extern void cec_volume_up(void);
+			cec_volume_up();
 
-				break;
-			}
-			case WM_APP_VOLUME_MUTE:
-			{
-				extern void cec_volume_mute(void);
-				cec_volume_mute();
+			break;
+		}
+		case WM_APP_VOLUME_DOWN:
+		{
+			extern void cec_volume_down(void);
+			cec_volume_down();
 
-				break;
-			}
-			case WM_APP_CEC_QUIT:
-			{
-				extern void cec_shutdown(void);
-				cec_shutdown();
+			break;
+		}
+		case WM_APP_VOLUME_MUTE:
+		{
+			extern void cec_volume_mute(void);
+			cec_volume_mute();
 
-				PostQuitMessage(0);
-			}	break;
+			break;
+		}
+		case WM_APP_CEC_QUIT:
+		{
+			extern void cec_shutdown(void);
+			cec_shutdown();
+
+			PostQuitMessage(0);
+		}	break;
 		}
 	}
 
@@ -196,10 +196,8 @@ VOID ParseDllArgument(VOID)
 	LPWSTR* argv = CommandLineToArgvW(GetCommandLineW(), &argc);
 	if (argv != NULL)
 	{
-		if (argc > 1 && argv[1] != NULL && argv[1][0] != L'\0')
-		{
-			StringCchCopyW(g_CustomDllPath, ARRAYSIZE(g_CustomDllPath), argv[1]);
-		}
+		if (argc > 1 && argv[1] != NULL && argv[1][0] != L'\0') StringCchCopyW(g_CustomDllPath, ARRAYSIZE(g_CustomDllPath), argv[1]);
+
 		LocalFree(argv);
 	}
 }
@@ -219,7 +217,7 @@ INT WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 
 	// Create ready event
 	g_hWorkerReady = CreateEvent(NULL, TRUE, FALSE, NULL);// manual-reset, initially non-signaled
-	
+
 	if (!g_hWorkerReady) return 1;
 
 
@@ -246,14 +244,14 @@ INT WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 	wc.lpfnWndProc = WindowProc;
 	wc.hInstance = hInstance;
 	wc.lpszClassName = L"TrayAppClass";
-	if (!RegisterClassEx(&wc)) goto cleanup;
+	if (!RegisterClassEx(&wc)) goto fail;
 
 
 
 	HWND hwnd = CreateWindowEx(0, L"TrayAppClass", L"TrayAppHiddenWindow", 0, 0, 0, 0, 0, HWND_MESSAGE, NULL, hInstance, NULL);
 
 
-	if (!hwnd) goto cleanup;
+	if (!hwnd) goto fail;
 
 
 
@@ -262,7 +260,7 @@ INT WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 	{
 		MessageBox(NULL, L"Failed to launch keyboard hook!", L"Error", MB_ICONERROR);
 		// Clean up worker
-		cleanup:
+	fail:
 		PostThreadMessage(g_dwWorkerThreadId, WM_APP_CEC_QUIT, 0, 0);
 		WaitForSingleObject(g_hWorkerThread, INFINITE);
 		CloseHandle(g_hWorkerThread);
